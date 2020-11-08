@@ -23,7 +23,7 @@ clock = pygame.time.Clock() # starts a clock obj to measure time
 class Tile(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.state = 0
+        self.state = 0 #Can change to 1 to test over tile
         self.image = pygame.Surface((40, 40))
         self.image.fill(BLUE)
         self.rect = self.image.get_rect()
@@ -80,7 +80,7 @@ while running:
                 player_sprite.update(0, -10)
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
                     player_sprite.update(0, 10)
-                    
+
             if event.key == pygame.K_DOWN and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None):
                 player_sprite.update(0, 10)
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
@@ -91,7 +91,9 @@ while running:
     
     pygame.display.update()
     screen.fill(GREY)
-    player_sprite.draw(screen)
+    
     wall_tiles.draw(screen)
     walk_tiles.draw(screen)
+    
+    player_sprite.draw(screen)
     
