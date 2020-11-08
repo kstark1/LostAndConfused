@@ -6,7 +6,7 @@ C1: I mean, sure, yeah, it's a pretty fine maze, a bit simple maybe.
 C2: THIS MAZE IS TRANCH, MAN.
 
 if C1:
-	Voice from the Ether: Huh... that's... pretty bold of you, dog, to suggest that this is a simple space. You know people have to like, carve this junk out, right? Well, whatever, you should be out in a jiffy, then.
+	Voice from the Ether: Huh... that's... pretty bold of you, dog, to suggest that this is a simple space. You know people have to like, carve this junk out, right? Well, whatever, you should be out in a jiffy, then. If it's so simple.
 if C2:
 	Voice from the Ether: ... Well you're about to get it right in the exactly where it's coming to you, friend. 
 
@@ -20,4 +20,19 @@ C2: What the- let me out of here you dillweed!
 if C1: 
 	Voice from the Ether: Thank goodness it probably only switches things up on you once then, huh?
 if C2:
-	Voice from the Ether: IF THIS MAZE IS SO SIMPLE GET YOURSELF OUT OF IT, DILLWEED.
+	Voice from the Ether: IT'S A SIMPLE MAZE, GET YOURSELF OUT, DILLWEED.
+
+//Convo3
+
+Voice from the Ether: Oh boy, you're still stuck in this *super* simple maze, huh? It's almost like, I don't know, you've been asked to do some sort of complex task that doesn't just happen in the blink of an eye. Sometimes you've got to spend like, 24 hours on this kind of thing. It's hard business.
+
+C1: I'm only struggling because I've gotten little to no sleep.
+C2: You're hard business. 
+
+if C1:
+	Voice from the Ether: You and everyone else in this Ether, fool.
+if C2: 
+	NO YOU'RE HARD BUSINESS. 
+
+//Convo4
+
