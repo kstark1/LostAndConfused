@@ -13,6 +13,8 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREY = (50, 50, 50)
 BLUE = (0, 0, 255)
+DARK_GREEN = (28,84,35) # Used to fill in the rest of the screen that does not contain rects
+LIGHT_BLUE = (96, 166, 191) # Used for the walls (rects)
 ### Create the window
 
 screen = pygame.display.set_mode(SCREENDIM) # creates the main surface where all other assets are place on top
@@ -119,9 +121,9 @@ positionState = obj.get_maze()
 for i in range(20):
     for j in range(20):
         if positionState[i][j] == 0:
-            colour = BLACK
+            colour = DARK_GREEN
         else:
-            colour = BLUE
+            colour = LIGHT_BLUE
         tile = Tile(i, j, positionState[i][j], colour)
         if tile.state == 0:
             wall_tiles.add(tile)
