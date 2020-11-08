@@ -22,6 +22,7 @@ LIGHT_BLUE = (96, 166, 191)
 screen = pygame.display.set_mode(SCREENDIM) # creates the main surface where all other assets are place on top
 pygame.display.set_caption(TITLE) # updates the window title w/ TITLE
 screen.fill(GREY) # Fills the entire surface w/ the colour --> fill = erase/clear
+screen_size = screen.get_size()
 
 clock = pygame.time.Clock() # starts a clock obj to measure time
 
@@ -50,6 +51,16 @@ class Player(pygame.sprite.Sprite):
 
     def get_grid_pos(self):
         return [self.rect.y//30, self.rect.x//40]
+
+    def get_pos(self):
+        return [self.rect.x, self.rect.y]
+
+    def get_width(self):
+        return self.rect.width
+
+    def get_height(self):
+        return self.rect.height
+
 
 obj = MazeGen()
 obj.empty_maze()
@@ -169,12 +180,13 @@ running = True
 regen = False
 
 while running:
+    p_pos = player.get_pos()
     for event in pygame.event.get(): 
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYDOWN:
 
-            if event.key == pygame.K_LEFT and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None):
+            if event.key == pygame.K_LEFT and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None)and p_pos[0] > 39:
                 player_sprite.update(-40, 0)
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
                     player_sprite.update(40, 0)
@@ -182,7 +194,7 @@ while running:
                 if conversationCurrent == 4 and pygame.sprite.spritecollideany(player, convo_tiles, collided = None) != None:
                     convo_tiles.empty()
 
-            if event.key == pygame.K_RIGHT and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None):
+            if event.key == pygame.K_RIGHT and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None)and p_pos[0] <= screen_size[0] - player.get_width() - 39:
                 player_sprite.update(40, 0)
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
                     player_sprite.update(-40, 0)
@@ -190,7 +202,7 @@ while running:
                 if conversationCurrent == 4 and pygame.sprite.spritecollideany(player, convo_tiles, collided = None) != None:
                     convo_tiles.empty()
 
-            if event.key == pygame.K_UP and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None):
+            if event.key == pygame.K_UP and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None)and p_pos[1] > 29:
                 player_sprite.update(0, -30)
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
                     player_sprite.update(0, 30)
@@ -198,7 +210,7 @@ while running:
                 if conversationCurrent == 4 and pygame.sprite.spritecollideany(player, convo_tiles, collided = None) != None:
                     convo_tiles.empty()
 
-            if event.key == pygame.K_DOWN and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None):
+            if event.key == pygame.K_DOWN and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None)and p_pos[1] <= screen_size[1] - player.get_height() - 29:
                 player_sprite.update(0, 30)
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
                     player_sprite.update(0, -30)
@@ -206,6 +218,7 @@ while running:
                 if conversationCurrent == 4 and pygame.sprite.spritecollideany(player, convo_tiles, collided = None) != None:
                     convo_tiles.empty()
 
+            endpoint = obj.get_endpoint()
             if player.get_grid_pos() == endpoint:
                 winConvo = Conversation.Base_conversation("Finally leaving huh...","Absolutely","Yes", "None", "None","Nice knowing you, fool..._(thank the stars, this maze really is too small_for the two of us)." ,screen)
                 winConvo.conversation_start()
