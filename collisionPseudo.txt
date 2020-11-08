@@ -1,0 +1,14 @@
+wall_tiles = pygame.sprite.Group()
+
+for i in rows
+	for j in columns
+		if board[i][j].state == 0: //Assuming state is an attribute that describes whether or not it's a wall or walkable tile
+			wall_tiles.add(board[i][j])
+
+
+//For every key condition,
+//e.g., if event.key = pygame.K_LEFT
+//add the secondary condition,
+
+if... and (spritecollideany(player, wall_tiles, collided = None) == None):
+	player_sprite.update()
