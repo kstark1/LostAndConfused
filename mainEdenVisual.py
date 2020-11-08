@@ -117,6 +117,8 @@ obj.connect_points()
 obj.print_maze()
 print(obj.connections)
 
+startingX = obj.connections[0][0]
+
 positionState = obj.get_maze()
 for i in range(20):
     for j in range(20):
@@ -124,26 +126,26 @@ for i in range(20):
             colour = DARK_GREEN
         else:
             colour = LIGHT_BLUE
-        tile = Tile(i, j, positionState[i][j], colour)
+        tile = Tile(j, i, positionState[i][j], colour)
         if tile.state == 0:
             wall_tiles.add(tile)
         else:
             walk_tiles.add(tile)
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, x):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((10, 10))
         self.image.fill(WHITE)
         self.rect = self.image.get_rect()
-        self.rect.center = (WIDTH / 8, HEIGHT / 8)
+        self.rect.center = (15, ((x * 40) + 20))
 
     def update(self, x, y):
         self.rect.x += x
         self.rect.y += y
 
 player_sprite = pygame.sprite.Group()
-player = Player()
+player = Player(startingX)
 player_sprite.add(player)
 
 running = True
