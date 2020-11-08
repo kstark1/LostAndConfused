@@ -90,24 +90,24 @@ while running:
         if event.type == pygame.KEYDOWN:
 
             if event.key == pygame.K_LEFT and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None):
-                player_sprite.update(-10, 0)
+                player_sprite.update(-40, 0)
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
-                    player_sprite.update(10, 0)
+                    player_sprite.update(40, 0)
 
             if event.key == pygame.K_RIGHT and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None):
-                player_sprite.update(10, 0)
+                player_sprite.update(40, 0)
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
-                    player_sprite.update(-10, 0)
+                    player_sprite.update(-40, 0)
 
             if event.key == pygame.K_UP and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None):
-                player_sprite.update(0, -10)
+                player_sprite.update(0, -30)
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
-                    player_sprite.update(0, 10)
+                    player_sprite.update(0, 30)
 
             if event.key == pygame.K_DOWN and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None):
-                player_sprite.update(0, 10)
+                player_sprite.update(0, 30)
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
-                    player_sprite.update(0, -10)
+                    player_sprite.update(0, -30)
 
             if event.key == pygame.K_r: ############################## regenerate maze
                 # regenerate maze
