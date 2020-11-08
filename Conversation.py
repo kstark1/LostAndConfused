@@ -20,6 +20,7 @@ class Base_conversation ():
         self.font = pygame.font.Font(None, 20) 
         self.black = (0,0,0)
         self.white = (255,255,255)
+        self.grey = (250,250,0)
 
         #dialog boxes info
         self.nRectHeight = 125
@@ -31,8 +32,16 @@ class Base_conversation ():
             self.nRecty + self.nRectHeight + 20,
             self.nRectWidth, 40)
         self.option2Rect = pygame.Rect(self.nRectx,
-             self.nRecty + self.nRectHeight + 80,
-             self.nRectWidth, 40)
+            self.nRecty + self.nRectHeight + 80,
+            self.nRectWidth, 40)
+
+        #selection indicator box
+        self.indicator = pygame.Rect(self.nRectx+18,
+            self.nRecty + self.nRectHeight + 35,
+            5, 5)
+        self.indicator2 = pygame.Rect(self.nRectx+18,
+            self.nRecty + self.nRectHeight + 95,
+            5, 5)
 
     def conversation_start(self):
         """ Start of conversation 
@@ -41,60 +50,88 @@ class Base_conversation ():
     
         
         #stop_movement()
-        # writing the first n prompt and crreating boxes
+
+        # writing the first n prompt and creating boxes
         self.create_dialog_boxes()
-        self.write_n_to_screen(self.nPrompt,(self.nRectx+20,self.nRecty+20))
-        time.sleep(2)
+        self.write_n_to_screen(self.nPrompt,(self.nRectx+20,self.nRecty+20),self.white)
+        time.sleep(1.5)
 
+        response = self.choose_option()
         
-
-        """throw visual prompt
-        
-
-        stop movement
-        take response
-        check ans
-        return movemment"""
+        self.check_ans(response)
 
     def create_dialog_boxes(self):
         pygame.draw.rect(self.screen,self.black,self.nRect)
         pygame.draw.rect(self.screen,self.black,self.option1Rect)
         pygame.draw.rect(self.screen,self.black,self.option2Rect)
 
-    def write_n_to_screen(self,text,position):
-        textsurface = self.font.render(text, True,self.white)
+    def write_n_to_screen(self,text,position,color):
+        pygame.draw.rect(self.screen,self.black,self.nRect)
+        pygame.display.update()
+        time.sleep(0.5)
+        textsurface = self.font.render(text, True,color)
+        self.screen.blit(textsurface,position)
+        pygame.display.update()
+    
+    def write_option_to_screen(self,text,position,color):
+        textsurface = self.font.render(text, True,color)
         self.screen.blit(textsurface,position)
         pygame.display.update()
 
-        
-   # def write_options_to_screen(self,text):
+    def choose_option(self):
+    #Initiate control of the options boxes, when enter is pushed exits control
+        #default selection:option one, show options and indicator
+        response = self.option1
+        self.write_option_to_screen(self.option1,(self.nRectx + 30,  self.nRecty + self.nRectHeight + 30),self.white)
+        self.write_option_to_screen(self.option2,(self.nRectx + 30,self.nRecty + self.nRectHeight + 90),self.white)
+        time.sleep(0.3)
+        pygame.draw.rect(self.screen,self.white,self.indicator)
+        pygame.display.update()
+       
+        # allow player to choose btwn options, enter confirms, choice is returned
+        exit_ = True
+        while exit_:    
+            for event in pygame.event.get(): # returns all inputs and triggers into an array
+                if event.type == pygame.QUIT: # if the red x was clicked eg buttons in corner of the window
+                    exit_ = False
+                if event.type == pygame.KEYDOWN:
 
+                    if event.key == pygame.K_UP:
+                        response  = self.option1
+                        pygame.draw.rect(self.screen,self.white,self.indicator)
+                        pygame.draw.rect(self.screen,self.black,self.indicator2)
+                        pygame.display.update()    
+                           
+                    if event.key == pygame.K_DOWN:
+                        response = self.option2
+                        pygame.draw.rect(self.screen,self.black,self.indicator)
+                        pygame.draw.rect(self.screen,self.white,self.indicator2)
+                        pygame.display.update()    
 
-    """def randomize_player_in_maze(self):
+                    #confirm choice
+                    if event.key == pygame.K_RETURN:
+                        return response
 
-    def check_ans(ans):
-        if ans = self.correctAns
-            positive response
+    def check_ans(self,ans):
+        if ans == self.correctAns:
+            self.write_n_to_screen(self.nPositiveResponse,(self.nRectx+20,self.nRecty+20),self.white)
+            time.sleep(2.5)
         else:
-            random 
-            negative response
+            self.write_n_to_screen(self.nNegativeResponse,(self.nRectx+20,self.nRecty+20),self.white)
+            time.sleep(2.5)
+            self.randomize_maze
 
-    def stop_movement(self):
-        call method from movement handling class
-
-    def start_movement(self):
-        call method from movement handling class
+    def randomize_maze(self):
+        pass
+ 
 
 class Always_wrong_conversation(Base_conversation):
-    #conversation that will always randomize
+    #conversation object that will always randomize
 
-     def check_ans():
-        if response = correct
-            notrandom
-            positive response
-        else:
-            random 
-            negative response"""
+    def check_ans():
+        self.randomize_maze
+
+        
 
 if __name__ == "__main__":
     pygame.init()
@@ -103,6 +140,6 @@ if __name__ == "__main__":
     pygame.display.set_caption('Show Text')
 
     convo = Base_conversation("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl",
-    "option1","option2", "correctAns", "nPositiveResponse", "nNegativeResponse",screen)
+    "option1","option2", "option1", "nPositiveResponse", "nNegativeResponse",screen)
     convo.conversation_start() 
 
