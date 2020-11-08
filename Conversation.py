@@ -20,6 +20,7 @@ class Base_conversation ():
         self.width = 60
         self.height = 60
         self.font = pygame.font.Font(None, 20) 
+        self.font2 = pygame.font.Font(None, 18)
         self.black = (0,0,0)
         self.white = (255,255,255)
         self.grey = (250,250,0)
@@ -92,7 +93,7 @@ class Base_conversation ():
         end = 0
         output = []
         for x in range(len(text)):
-            if x % 64 == 0 and not x == 0 :
+            if text[x] == "_":
                 print(x)
                 for i in range(end,x):
                     print(i)
@@ -103,14 +104,14 @@ class Base_conversation ():
                     self.screen.blit(textsurface,tuple(position))
                     pygame.display.update()
                     time.sleep(0.01)
-                end = x
+                end = x+1
                 position[1] += 17
                 self.nRectcover.move_ip(0,17)
                 print(output)
                 output = []
             if x == len(text)-1:
                 print ("trigger")
-                for i in range(end,x):
+                for i in range(end,x+1):
                     pygame.draw.rect(self.screen,self.black,self.nRectcover)
                     output.append(text[i])
                     textsurface = self.font.render("".join(output), True,color)
@@ -121,7 +122,7 @@ class Base_conversation ():
             
     
     def write_option_to_screen(self,text,position,color):
-        textsurface = self.font.render(text, True,color)
+        textsurface = self.font2.render(text, True,color)
         self.screen.blit(textsurface,position)
         pygame.display.update()
 
@@ -176,6 +177,14 @@ class Always_wrong_conversation(Base_conversation):
     #conversation object that will always randomize
 
     def check_ans(self):
+                if ans == self.correctAns:
+            self.write_n_to_screen(self.nPositiveResponse,(self.nRectx+20,self.nRecty+20),self.white)
+            time.sleep(2.5)
+            return True
+        else:
+            self.write_n_to_screen(self.nNegativeResponse,(self.nRectx+20,self.nRecty+20),self.white)
+            time.sleep(2.5)
+            return True
         return True
 
         
@@ -186,7 +195,7 @@ if __name__ == "__main__":
     screen.fill((255,255,255)) 
     pygame.display.set_caption('Show Text')
 
-    convo = Base_conversation("Water plays an important role in the world economy. Approximately 70% of the freshwater used by humans goes to agriculture.[4] Fishing in salt and fresh water bodies is a major source of food for many parts of the world. Much of the long-distance trade of commodities (such as oil, natural gas, and manufactured products) is transported by boats through seas, rivers, lakes, and canals. Large quantities of water, ice, and steam are used for cooling and heating, in industry and homes. Water is an excellent solvent for a wide variety of substances both mineral and organic; as such it is widely used in industrial processes, and in cooking and washing. Water, ice and snow are also central to many sports and other forms of entertainment, such as swimming, pleasure boating, boat racing, surfing, sport fishing, diving, ice skating and skiing.",
+    convo = Base_conversation("Water plays an important role in the world economy._Approximately 70% of the freshwater used by humans goes to agriculture.[4] Fishing in_salt and fresh water bodies is a major source of food for many parts of the world._Much of the long-distance trade of commodities",
     "option1","option2", "option1", "nPositiveResponse", "nNegativeResponse",screen)
     convo.conversation_start() 
 

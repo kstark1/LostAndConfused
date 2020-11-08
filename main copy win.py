@@ -139,7 +139,7 @@ while running:
                 regen = check_convo_collision()
 
             if player.get_grid_pos() == endpoint:
-                winConvo = Conversation.Base_conversation("Finally leaving huh...","Absolutely","Yes", "None", "None","...It was fun while it lasted. See ya." ,screen)
+                winConvo = Conversation.Base_conversation("Finally leaving huh...","Absolutely","Yes", "None", "None","Nice knowing you, fool..._(thank the stars, this maze really is too small_for the two of us)." ,screen)
                 winConvo.conversation_start()
                 sys.exit()
 
