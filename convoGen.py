@@ -51,7 +51,7 @@ def rerandomize_convos(convoDictionary,maze):
     convoLocations = []
     for x in range(len(convoDictionary)):
         while True:
-            convoLocation = [random.randint([0,19]),random.randint([0,19])]
+            convoLocation = [random.randint(0,19),random.randint(0,19)]
             if maze[convoLocation[0]][convoLocation[1]] == 0 :
                 convoLocations.append(tuple(convoLocation))
                 break

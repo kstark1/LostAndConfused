@@ -90,11 +90,18 @@ convo_tiles = pygame.sprite.Group()
 for x in convoDictionary:
     convo_tiles.add(Tile(x[0],x[1],1,LIGHT_BLUE))
 
+used_convos = []
 def check_convo_collision():
     collided_convo = pygame.sprite.spritecollideany(player, convo_tiles, collided = None)
-    if not collided_convo == None:
+    if not collided_convo == None and not collided_convo.corner in used_convos:
         convoObj = (convoDictionary[collided_convo.corner])
-        return convoObj.conversation_start()
+        regen =  convoObj.conversation_start()
+        if regen == True:
+            used_convos.append(collided_convo.corner)
+            convoGen.remove_convo(collided_convo.corner,convoDictionary)
+            return True
+            
+    return False
 
 
 running = True
@@ -130,6 +137,7 @@ while running:
                     player_sprite.update(0, -30)
                 regen = check_convo_collision()
 
+        print(regen)
         if regen == True:
         # regenerate maze
             obj = MazeGen()
@@ -157,6 +165,9 @@ while running:
                         wall_tiles.add(tile)
                     else:
                         walk_tiles.add(tile)  
+
+            convoGen.rerandomize_convos(convoDictionary,obj.get_maze())
+            
             regen = False
 
             

@@ -148,7 +148,7 @@ class Base_conversation ():
 class Always_wrong_conversation(Base_conversation):
     #conversation object that will always randomize
 
-    def check_ans():
+    def check_ans(self):
         return True
 
         
