@@ -21,9 +21,12 @@ class MazeGen():
             self.maze.append([0]*self.dim)
         
     
-    def set_start(self):
-        self.connections.append([random.randrange(self.dim), 0])
-        self.row = self.connections[0][0]
+    def set_start(self, player_pos = [2, 3]):
+        if len(player_pos) != 0:
+            self.connections.append(player_pos)
+        else:
+            self.connections.append([random.randrange(self.dim), 0])
+            self.row = self.connections[0][0]
     
     def set_end(self):
         self.connections.append([random.randrange(self.dim), 19])
@@ -32,11 +35,13 @@ class MazeGen():
         for i in range(0, self.n):
             self.connections.append([random.randrange(0,self.dim), random.randrange(0, self.dim-1)])
     
-    def set_dead_connects(self):
+    def set_dead_connects(self, player_pos = [4, 5]):
         for i in range(self.num_dead):
             self.dead_connects.append([])
-            for j in range(0, random.randrange(2, 4)):
-                self.dead_connects[i].append([random.randrange(0,self.dim)-2, random.randrange(0, self.dim-2)])
+            for j in range(0, random.randrange(3, 5)):
+                self.dead_connects[i].append([random.randrange(1,self.dim)-2, random.randrange(1, self.dim-2)])
+
+        
     
     def connect_points(self):
         # generates the correct path
