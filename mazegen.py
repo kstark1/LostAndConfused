@@ -9,19 +9,23 @@ class MazeGen():
     def __init__(self, player_pos = []):
         self.maze = []
         self.n = random.randrange(5, 8)
+        # connection points to form correct path through maze
         self.connections = []
         self.row = 2
         self.col = 0
         self.dim = 20
         self.num_dead = random.randrange(5, 8)
-        self.dead_connects = []
+        self.dead_connects = [] # dead end points
     
     def empty_maze(self):
         for i in range(0, self.dim):
             self.maze.append([0]*self.dim)
         
     
-    def set_start(self, player_pos = [2, 3]):
+    def set_start(self, player_pos = []):
+        # sets the starting point for the maze
+        # also ensures the player is on the maze when regenerating it
+        # player_pos is the position of the player for regen
         if len(player_pos) != 0:
             self.connections.append(player_pos)
         else:
@@ -29,20 +33,25 @@ class MazeGen():
             self.row = self.connections[0][0]
     
     def set_end(self):
+        # get random points to finish
         self.connections.append([random.randrange(self.dim), 19])
     
     def new_connection(self):
+        # get random points to connect
         for i in range(0, self.n):
             self.connections.append([random.randrange(0,self.dim), random.randrange(0, self.dim-1)])
     
     def set_dead_connects(self, player_pos = [4, 5]):
+        # get random points to connect to form dead ends
         for i in range(self.num_dead):
             self.dead_connects.append([])
             for j in range(0, random.randrange(3, 5)):
                 self.dead_connects[i].append([random.randrange(1,self.dim-2), random.randrange(1, self.dim-2)])
+
+            # get a random connection point that is not the start/end point
+            # this will ensure that the dead end are connected to the main path
             self.dead_connects[i].append(random.choice(self.connections[1:-1]))
-            print(self.dead_connects[i])
-        print(self.connections)
+
     
     def get_endpoint(self):
         return self.connections[-1]
@@ -67,6 +76,8 @@ class MazeGen():
 
     
     def vertical(self, j):
+        # make path of 1s traveling in the veritcal direction
+        # until on the same row as the next connection point
         diff_row = self.connections[j][0] - self.row
         if diff_row <= 0:
             for i in range(0, diff_row*-1):
@@ -78,6 +89,8 @@ class MazeGen():
                 self.maze[self.row][self.col] = 1
     
     def horizontal(self, j):
+        # make path of 1s traveling in the horizontal direction
+        # until on the same row as the next connection point
         diff_col = self.connections[j][1] - self.col
         if diff_col < 0:
             for i in range(0, diff_col*-1):
@@ -117,6 +130,8 @@ class MazeGen():
                 
 
     def dead_vertical(self, h, j):
+        # make path of 1s traveling in the veritcal direction
+        # until on the same row as the next connection point
         diff_row = self.dead_connects[h][j][0] - self.row
         if diff_row <= 0:
             for i in range(0, diff_row*-1):
@@ -128,6 +143,8 @@ class MazeGen():
                     self.maze[self.row][self.col] = 1
 
     def dead_horizontal(self, h, j):
+        # make path of 1s traveling in the horizontal direction
+        # until on the same row as the next connection point
         diff_col = self.dead_connects[h][j][1] - self.col
         if diff_col < 0:
             for i in range(0, diff_col*-1):
@@ -148,5 +165,5 @@ obj.connect_points()
 
 obj.set_dead_connects()
 obj.dead_end_points()
-obj.print_maze()
+
 
