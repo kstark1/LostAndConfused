@@ -61,7 +61,7 @@ class Base_conversation ():
 
         response = self.choose_option()
         
-        self.check_ans(response)
+        return self.check_ans(response)
 
     def create_dialog_boxes(self):
         #creates base bg boxes

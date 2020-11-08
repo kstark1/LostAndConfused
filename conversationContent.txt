@@ -1,0 +1,23 @@
+//Convo1
+
+Voice from the Ether: OH, well hello there. Pretty fine day, huh? Pretty fine maze? 
+
+C1: I mean, sure, yeah, it's a pretty fine maze, a bit simple maybe.
+C2: THIS MAZE IS TRANCH, MAN.
+
+if C1:
+	Voice from the Ether: Huh... that's... pretty bold of you, dog, to suggest that this is a simple space. You know people have to like, carve this junk out, right? Well, whatever, you should be out in a jiffy, then.
+if C2:
+	Voice from the Ether: ... Well you're about to get it right in the exactly where it's coming to you, friend. 
+
+//Convo2
+
+Voice from the Ether: HUH, look at that! It's almost like there's some contingency plan to donk up fools like you who think this place is simple. Wild days. 
+
+C1: It uh, still looks pretty easy, though. 
+C2: What the- let me out of here you dillweed!
+
+if C1: 
+	Voice from the Ether: Thank goodness it probably only switches things up on you once then, huh?
+if C2:
+	Voice from the Ether: IF THIS MAZE IS SO SIMPLE GET YOURSELF OUT OF IT, DILLWEED.
