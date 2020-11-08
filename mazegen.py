@@ -43,7 +43,7 @@ class MazeGen():
         self.maze[self.connections[0][0]][0] = 1
         
         for j in range(0, len(self.connections)):
-            # picking randomly which direction to travel first 
+            # picking randomly which direction to travel
             direction = random.randrange(0, 2)
 
             if direction == 0:
