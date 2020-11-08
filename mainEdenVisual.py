@@ -117,7 +117,7 @@ obj.connect_points()
 obj.print_maze()
 print(obj.connections)
 
-startingX = obj.connections[0][0]
+startingX = obj.connections[0][0] 
 
 positionState = obj.get_maze()
 for i in range(20):
@@ -135,10 +135,10 @@ for i in range(20):
 class Player(pygame.sprite.Sprite):
     def __init__(self, x):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((10, 10))
+        self.image = pygame.Surface((30, 20))
         self.image.fill(WHITE)
         self.rect = self.image.get_rect()
-        self.rect.center = (15, ((x * 40) + 20))
+        self.rect.center = (20, ((x * 30) + 15))
 
     def update(self, x, y):
         self.rect.x += x
