@@ -95,10 +95,11 @@ R2 = ['0', '1', '2', '3', '4']
 conversationCurrent = 0
 
 # Generate and group convo tiles
-convoDictionary = convoGenEdenCopy.generate_conversations(walkableTiles,screen, prompt, C1, C2, R1, R2, conversationCurrent)
-convo_tiles = pygame.sprite.Group()
-for x in convoDictionary:
-    convo_tiles.add(Tile(x[0],x[1],1,GREY))
+if conversationCurrent < 5:
+    convoDictionary = convoGenEdenCopy.generate_conversations(walkableTiles,screen, prompt, C1, C2, R1, R2, conversationCurrent)
+    convo_tiles = pygame.sprite.Group()
+    for x in convoDictionary:
+        convo_tiles.add(Tile(x[0],x[1],1,GREY))
 
 used_convos = []
 def check_convo_collision():
@@ -148,7 +149,7 @@ while running:
                 regen = check_convo_collision()
 
         print(regen)
-        if regen == True:
+        if regen == True and conversationCurrent < 5:
         # regenerate maze
             obj = MazeGen()
             obj.empty_maze()
