@@ -3,39 +3,70 @@ import time
 
 class Base_conversation ():
     
-    __init__(self,position,nPrompt,option1,option2, correctAns, nPositiveResponse, nNegativeResponse):
-        self.position = position
-        self.nPrompt
-        self.option1
-        self.option2
-        self.correctAns
-        self.nPositiveResponse
-        self.nNegativeResponse
-        self.width =
-        self.height = 
+    def __init__ (self,nPrompt,option1,option2, correctAns, nPositiveResponse, nNegativeResponse,screen):
+        #Conversation strings
+        self.nPrompt = nPrompt
+        self.option1 = option1
+        self.option2 = option2
+        self.correctAns = correctAns
+        self.nPositiveResponse = nPositiveResponse
+        self.nNegativeResponse = nNegativeResponse
+
+        #Misc fields
+        self.screen = screen
+        self.position = (75,600)
+        self.width = 60
+        self.height = 60
         self.font = pygame.font.Font(None, 50) 
         self.black = (0,0,0)
         self.white = (255,255,255)
 
+        #dialog boxes info
+        self.nRectHeight = 125
+        self.nRectWidth = 500
+        self.nRectx = 150
+        self.nRecty = 375
+        self.nRect = pygame.Rect(self.nRectx,self.nRecty,self.nRectWidth,self.nRectHeight)
+        self.option1Rect = pygame.Rect(self.nRectx,
+            self.nRecty + self.nRectHeight + 20,
+            240, 100)
+        self.option2Rect = pygame.Rect(self.nRectx - ,
+             self.nRecty + self.nRectHeight + 20,
+             240, 100)
+
     def conversation_start(self):
-        """ called on player collision by the player class"""
+        """ Start of conversation 
+        called on player collision by the player class
+        returns nothing"""
+    
+        
+        #stop_movement()
+        self.create_dialog_boxes()
+        self.write_n_to_screen(self.nPrompt)
 
-        stop_movement()
-
-        throw visual prompt
+        """throw visual prompt
         
 
         stop movement
         take response
         check ans
-        return movemment
+        return movemment"""
 
-    def write_to_screen(self,text):
-        textrender = self.font.render(nPrompt, True,self.white)
-        textRect = textrender.get_rect()
-        textRect.center = ()
+    def create_dialog_boxes(self):
+        pygame.draw.rect(self.screen,self.black,self.nRect)
 
-    def randomize_player_in_maze(self):
+    def write_n_to_screen(self,text):
+        textsurface = self.font.render(text, True,self.white)
+        self.screen.blit(textsurface,self.position)
+        pygame.display.update()
+
+        #remove after
+        time.sleep(2)
+        
+   # def write_options_to_screen(self,text):
+
+
+    """def randomize_player_in_maze(self):
 
     def check_ans(ans):
         if ans = self.correctAns
@@ -59,12 +90,14 @@ class Always_wrong_conversation(Base_conversation):
             positive response
         else:
             random 
-            negative response
+            negative response"""
 
-if __name__ = "__main__":
+if __name__ == "__main__":
     pygame.init()
-    display_surface = pygame.display.set_mode((800, 800 ))
+    screen = pygame.display.set_mode((800, 600 ))
+    screen.fill((255,255,255)) 
     pygame.display.set_caption('Show Text')
 
-    convo = Base_conversation()
+    convo = Base_conversation("nPrompt","option1","option2", "correctAns", "nPositiveResponse", "nNegativeResponse",screen)
     convo.conversation_start() 
+
