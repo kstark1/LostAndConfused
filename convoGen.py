@@ -12,8 +12,8 @@ def generate_conversations(maze,screen):
     convoLocations = []
     for x in range(3):
         while True:
-            convoLocation = [random.randint(),random.randint()]
-            if maze[convoLocation[0]][convoLocation[1]] == 0 :
+            convoLocation = [random.randint(0,19),random.randint(0,19)]
+            if maze[convoLocation[0]][convoLocation[1]] == 1 :
                 convoLocations.append(tuple(convoLocation))
                 break
 
@@ -31,30 +31,30 @@ def generate_conversations(maze,screen):
 
     #convo 1
     conversationDic[convoLocations[0]] = Conversation.Base_conversation
-    (nPrompt,option1,option2, correctAns, nPositiveResponse, nNegativeResponse,screen)
+    ("nPrompt","option1","option2", "correctAns", "nPositiveResponse", "nNegativeResponse",screen)
 
     #convo 2
-    conversationDic[convoLocations[1]] = Conversation.Base_conversation()
-    (nPrompt,option1,option2, correctAns, nPositiveResponse, nNegativeResponse,screen)
+    conversationDic[convoLocations[1]] = Conversation.Base_conversation
+    ("nPrompt","option1","option2", "correctAns", "nPositiveResponse", "nNegativeResponse",screen)
 
     #convo 3
-    conversationDic[convoLocations[2]] = Conversation.Base_conversation()
-    (nPrompt,option1,option2, correctAns, nPositiveResponse, nNegativeResponse,screen)
+    conversationDic[convoLocations[2]] = Conversation.Base_conversation
+    ("nPrompt","option1","option2", "correctAns", "nPositiveResponse", "nNegativeResponse",screen)
 
 
     return conversationDic
 
-def remove_convo(location,convoDictionary)
+def remove_convo(location,convoDictionary):
     """remove a conversation from the dictionary after it has been used"""
     convoDictionary.pop(location)
 
-def rerandomize_convos(convoDictionary):
+def rerandomize_convos(convoDictionary,maze):
     """ randomize convo placement again after having regenerated the maze"""
     random.seed()
     convoLocations = []
     for x in range(len(convoDictionary)):
         while True:
-            convoLocation = [random.randint(),random.randint()]
+            convoLocation = [random.randint([0,19]),random.randint([0,19])]
             if maze[convoLocation[0]][convoLocation[1]] == 0 :
                 convoLocations.append(tuple(convoLocation))
                 break

@@ -14,6 +14,7 @@ class Base_conversation ():
         self.nNegativeResponse = nNegativeResponse
 
         #Misc fields
+        self.__name__ = "conversation"
         self.screen = screen
         self.position = (75,600)
         self.width = 60
@@ -43,6 +44,10 @@ class Base_conversation ():
         self.indicator2 = pygame.Rect(self.nRectx+18,
             self.nRecty + self.nRectHeight + 95,
             5, 5)
+
+    def __str__(self):
+        print("This is a convo")
+
 
     def conversation_start(self):
         """ Start of conversation 
