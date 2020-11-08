@@ -1,5 +1,6 @@
 import pygame
 import time
+import sys
 
 class Base_conversation ():
     
@@ -48,12 +49,9 @@ class Base_conversation ():
         called on player collision by the player class
         returns nothing"""
     
-        
-        #stop_movement()
-
         # writing the first n prompt and creating boxes
         self.create_dialog_boxes()
-        self.write_n_to_screen(self.nPrompt,(self.nRectx+20,self.nRecty+20),self.white)
+        self.write_n_to_screen(self.nPrompt,[self.nRectx+20,self.nRecty+20],self.white)
         time.sleep(1.5)
 
         response = self.choose_option()
@@ -61,17 +59,34 @@ class Base_conversation ():
         self.check_ans(response)
 
     def create_dialog_boxes(self):
+        #creates base bg boxes
         pygame.draw.rect(self.screen,self.black,self.nRect)
         pygame.draw.rect(self.screen,self.black,self.option1Rect)
         pygame.draw.rect(self.screen,self.black,self.option2Rect)
 
     def write_n_to_screen(self,text,position,color):
+        #erases previous narrator message and replaces it
         pygame.draw.rect(self.screen,self.black,self.nRect)
         pygame.display.update()
         time.sleep(0.5)
-        textsurface = self.font.render(text, True,color)
-        self.screen.blit(textsurface,position)
-        pygame.display.update()
+    
+        # text is less than 64 characters, no line splitting needed
+        if len(text) < 64:
+            textsurface = self.font.render(text, True,color)
+            self.screen.blit(textsurface,tuple(position))
+            pygame.display.update()
+            return
+               
+        # text is more than 64 characters, line splitting needed
+        end = 0
+        for x in range(len(text)):
+            if x % 64 == 0 and not x == 0 :
+                textsurface = self.font.render(text[end:x+1], True,color)
+                end = x+1
+                self.screen.blit(textsurface,tuple(position))
+                pygame.display.update()
+                position[1] += 17
+            
     
     def write_option_to_screen(self,text,position,color):
         textsurface = self.font.render(text, True,color)
@@ -93,7 +108,7 @@ class Base_conversation ():
         while exit_:    
             for event in pygame.event.get(): # returns all inputs and triggers into an array
                 if event.type == pygame.QUIT: # if the red x was clicked eg buttons in corner of the window
-                    exit_ = False
+                    sys.exit()
                 if event.type == pygame.KEYDOWN:
 
                     if event.key == pygame.K_UP:
@@ -139,7 +154,9 @@ if __name__ == "__main__":
     screen.fill((255,255,255)) 
     pygame.display.set_caption('Show Text')
 
-    convo = Base_conversation("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl",
+    convo = Base_conversation("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl\n"+
+    "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl\n"+
+    "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl\n",
     "option1","option2", "option1", "nPositiveResponse", "nNegativeResponse",screen)
     convo.conversation_start() 
 
