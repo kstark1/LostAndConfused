@@ -32,7 +32,30 @@ C2: You're hard business.
 if C1:
 	Voice from the Ether: You and everyone else in this Ether, fool.
 if C2: 
-	NO YOU'RE HARD BUSINESS. 
+	Voice from the Ether: NO YOU'RE HARD BUSINESS. 
 
 //Convo4
 
+Voice from the Ether: Still here, loser? 
+
+C1: You're pretty blatantly unkind, you know that? 
+C2: Shut the fu-
+
+//Either way:
+
+Voice from the Ether: Right back at you my dude. You know what, get out of here, this is as lame as the day you were born. 
+
+//Convo5
+Voice from the Ether: AHAHAHAHA, I TOTALLY GO YOU, YOU FOOL, YOU WAD. 
+
+C1: Please make this hackathon stop. I mean... maze? What the...
+C2: Why aren't you a physical entity I can punch? 
+
+if C1:
+	Voice from the Ether: My days, what sort of whacked out astral plane are you on right now? Alright dog, get out of here for real time. Get some sleep.
+if C2:
+	Voice from the Ether: Yeah, they didn't have time for that. Okay, okay, you can actually go now. Even I'm bored.
+
+//Can we trigger something upon win?
+
+Voice from the Ether: Nice knowing you, fool (thank the stars, this maze really is too small for the two of us).
