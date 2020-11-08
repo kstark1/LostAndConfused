@@ -17,7 +17,7 @@ class Base_conversation ():
         self.position = (75,600)
         self.width = 60
         self.height = 60
-        self.font = pygame.font.Font(None, 50) 
+        self.font = pygame.font.Font(None, 20) 
         self.black = (0,0,0)
         self.white = (255,255,255)
 
@@ -25,14 +25,14 @@ class Base_conversation ():
         self.nRectHeight = 125
         self.nRectWidth = 500
         self.nRectx = 150
-        self.nRecty = 375
+        self.nRecty = 300
         self.nRect = pygame.Rect(self.nRectx,self.nRecty,self.nRectWidth,self.nRectHeight)
         self.option1Rect = pygame.Rect(self.nRectx,
             self.nRecty + self.nRectHeight + 20,
-            240, 100)
-        self.option2Rect = pygame.Rect(self.nRectx - ,
-             self.nRecty + self.nRectHeight + 20,
-             240, 100)
+            self.nRectWidth, 40)
+        self.option2Rect = pygame.Rect(self.nRectx,
+             self.nRecty + self.nRectHeight + 80,
+             self.nRectWidth, 40)
 
     def conversation_start(self):
         """ Start of conversation 
@@ -41,8 +41,12 @@ class Base_conversation ():
     
         
         #stop_movement()
+        # writing the first n prompt and crreating boxes
         self.create_dialog_boxes()
-        self.write_n_to_screen(self.nPrompt)
+        self.write_n_to_screen(self.nPrompt,(self.nRectx+20,self.nRecty+20))
+        time.sleep(2)
+
+        
 
         """throw visual prompt
         
@@ -54,14 +58,14 @@ class Base_conversation ():
 
     def create_dialog_boxes(self):
         pygame.draw.rect(self.screen,self.black,self.nRect)
+        pygame.draw.rect(self.screen,self.black,self.option1Rect)
+        pygame.draw.rect(self.screen,self.black,self.option2Rect)
 
-    def write_n_to_screen(self,text):
+    def write_n_to_screen(self,text,position):
         textsurface = self.font.render(text, True,self.white)
-        self.screen.blit(textsurface,self.position)
+        self.screen.blit(textsurface,position)
         pygame.display.update()
 
-        #remove after
-        time.sleep(2)
         
    # def write_options_to_screen(self,text):
 
@@ -98,6 +102,7 @@ if __name__ == "__main__":
     screen.fill((255,255,255)) 
     pygame.display.set_caption('Show Text')
 
-    convo = Base_conversation("nPrompt","option1","option2", "correctAns", "nPositiveResponse", "nNegativeResponse",screen)
+    convo = Base_conversation("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl",
+    "option1","option2", "correctAns", "nPositiveResponse", "nNegativeResponse",screen)
     convo.conversation_start() 
 
