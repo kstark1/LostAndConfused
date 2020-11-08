@@ -43,30 +43,41 @@ class MazeGen():
         self.maze[self.connections[0][0]][0] = 1
         
         for j in range(0, len(self.connections)):
-            # vertical movement
-            diff_row = self.connections[j][0] - self.row
-            if diff_row <= 0:
-                for i in range(0, diff_row*-1):
-                    self.row -= 1
-                    self.maze[self.row][self.col] = 1
-            if diff_row > 0:
-                for i in range(0, diff_row):
-                    self.row += 1
-                    self.maze[self.row][self.col] = 1
-                    
-            # horizontal movement
-            diff_col = self.connections[j][1] - self.col
-            if diff_col < 0:
-                for i in range(0, diff_col*-1):
-                    self.col -= 1
-                    self.maze[self.row][self.col] = 1
+            # picking randomly which direction to travel first 
+            direction = random.randrange(0, 2)
+
+            if direction == 0:
+                self.vertical(j)
+                self.horizontal(j)
             
-            if diff_col >=0:
-                for i in range(0, diff_col):
-                    self.col += 1
-                    self.maze[self.row][self.col] = 1
-                
-            # horizontal movement
+            else:
+                self.horizontal(j)
+                self.vertical(j)
+
+    
+    def vertical(self, j):
+        diff_row = self.connections[j][0] - self.row
+        if diff_row <= 0:
+            for i in range(0, diff_row*-1):
+                self.row -= 1
+                self.maze[self.row][self.col] = 1
+        if diff_row > 0:
+            for i in range(0, diff_row):
+                self.row += 1
+                self.maze[self.row][self.col] = 1
+    
+    def horizontal(self, j):
+        diff_col = self.connections[j][1] - self.col
+        if diff_col < 0:
+            for i in range(0, diff_col*-1):
+                self.col -= 1
+                self.maze[self.row][self.col] = 1
+            
+        if diff_col >=0:
+            for i in range(0, diff_col):
+                self.col += 1
+                self.maze[self.row][self.col] = 1
+
 
     def print_maze(self):
         # use for debugging
@@ -82,30 +93,40 @@ class MazeGen():
             self.col = self.dead_connects[h][0][1]
 
             for j in range(0, len(self.dead_connects[h])):
-                # vertical movement
-                diff_row = self.dead_connects[h][j][0] - self.row
-                if diff_row <= 0:
-                    for i in range(0, diff_row*-1):
-                        self.row -= 1
-                        self.maze[self.row][self.col] = 1
-                if diff_row > 0:
-                    for i in range(0, diff_row):
-                        self.row += 1
-                        self.maze[self.row][self.col] = 1
-                        
-                # horizontal movement
-                diff_col = self.dead_connects[h][j][1] - self.col
-                if diff_col < 0:
-                    for i in range(0, diff_col*-1):
-                        self.col -= 1
-                        self.maze[self.row][self.col] = 1
-                
-                if diff_col >=0:
-                    for i in range(0, diff_col):
-                        self.col += 1
-                        self.maze[self.row][self.col] = 1
-                    
+                # randomly picking weather to move in the horizontal direction
+                # first of the vertical direction
+                direction = random.randrange(0, 2)
 
+                if direction == 0:
+                    self.dead_vertical(h, j)
+                    self.dead_horizontal(h, j)
+                else:
+                    self.dead_horizontal(h, j)
+                    self.dead_vertical(h, j)
+                
+
+    def dead_vertical(self, h, j):
+        diff_row = self.dead_connects[h][j][0] - self.row
+        if diff_row <= 0:
+            for i in range(0, diff_row*-1):
+                self.row -= 1
+                self.maze[self.row][self.col] = 1
+            if diff_row > 0:
+                for i in range(0, diff_row):
+                    self.row += 1
+                    self.maze[self.row][self.col] = 1
+
+    def dead_horizontal(self, h, j):
+        diff_col = self.dead_connects[h][j][1] - self.col
+        if diff_col < 0:
+            for i in range(0, diff_col*-1):
+                self.col -= 1
+                self.maze[self.row][self.col] = 1
+                
+        if diff_col >=0:
+            for i in range(0, diff_col):
+                self.col += 1
+                self.maze[self.row][self.col] = 1
 
 obj = MazeGen()
 obj.empty_maze()
