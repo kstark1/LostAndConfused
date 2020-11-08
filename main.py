@@ -68,11 +68,11 @@ obj.set_start()
 obj.new_connection()
 obj.set_end()
 obj.connect_points()
-obj.print_maze()
-print(obj.connections)
+
+
 obj.set_dead_connects()
 obj.dead_end_points()
-obj.print_maze()
+
 
 wall_tiles = pygame.sprite.Group()
 walk_tiles = pygame.sprite.Group()
@@ -224,7 +224,7 @@ while running:
                 winConvo.conversation_start()
                 sys.exit()
 
-        print(regen)
+        
         if regen == True and (conversationCurrent < 4):
         # regenerate maze
             obj = MazeGen()

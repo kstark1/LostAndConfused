@@ -95,10 +95,9 @@ class Base_conversation ():
         output = []
         for x in range(len(text)):
             if text[x] == "_":
-                print(x)
+              
                 for i in range(end,x):
-                    print(i)
-                    print(output)
+                  
                     pygame.draw.rect(self.screen,self.black,self.nRectcover)
                     output.append(text[i])
                     textsurface = self.font.render("".join(output), True,color)
@@ -108,10 +107,10 @@ class Base_conversation ():
                 end = x+1
                 position[1] += 17
                 self.nRectcover.move_ip(0,17)
-                print(output)
+               
                 output = []
             if x == len(text)-1:
-                print ("trigger")
+               
                 for i in range(end,x+1):
                     pygame.draw.rect(self.screen,self.black,self.nRectcover)
                     output.append(text[i])

@@ -50,11 +50,11 @@ obj.set_start()
 obj.new_connection()
 obj.set_end()
 obj.connect_points()
-obj.print_maze()
-print(obj.connections)
+
+
 obj.set_dead_connects()
 obj.dead_end_points()
-obj.print_maze()
+
 
 
 positionState = obj.get_maze()
@@ -124,10 +124,10 @@ while running:
                 obj.new_connection()
                 obj.set_end()
                 obj.connect_points()
-                print(player.get_grid_pos())
+                
                 obj.set_dead_connects()
                 obj.dead_end_points()
-                obj.print_maze()
+               
 
                 walk_tiles.empty()
                 wall_tiles.empty()

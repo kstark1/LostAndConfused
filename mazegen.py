@@ -106,7 +106,7 @@ class MazeGen():
     def print_maze(self):
         # use for debugging
         for row in self.maze:
-            print(row)
+            pass
 
     def get_maze(self):
         return self.maze

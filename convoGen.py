@@ -32,7 +32,7 @@ def rerandomize_convos(convoDictionary,maze):
     convoLocations = []
     for x in range(15):
             convoLocation = maze[x]
-            print(maze[x])
+           
             convoLocations.append(tuple(convoLocation))
     
     """take each convo object from the original convo dictionary and re assign it
