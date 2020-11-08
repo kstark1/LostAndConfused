@@ -1,6 +1,8 @@
 import pygame
 import random
 from mazegen import *
+import convoGen
+import Conversation
 
 ### Display Variables
 TITLE = 'Maze Game' # Title that appears in the window title
@@ -30,6 +32,7 @@ class Tile(pygame.sprite.Sprite):
         self.image.fill(colour)
         self.rect = self.image.get_rect()
         self.rect.center = (((x * 40) + 20), ((y * 30) + 15))
+        self.corner = (x,y)
 
 
 class Player(pygame.sprite.Sprite):
@@ -81,6 +84,23 @@ player_sprite = pygame.sprite.Group()
 player = Player(startingX)
 player_sprite.add(player)
 
+# Generate and group convo tiles
+convoDictionary = convoGen.generate_conversations(obj.get_maze(),screen)
+convo_tiles = pygame.sprite.Group()
+for x in convoDictionary:
+    convo_tiles.add(Tile(x[0],x[1],1,LIGHT_BLUE))
+
+def check_convo_collision():
+    collided_convo = pygame.sprite.spritecollideany(player, convo_tiles, collided = None)
+    if not collided_convo == None:
+        convoObj = (convoDictionary[collided_convo.corner])
+        print(collided_convo.corner)
+        print(type(convoObj))
+        print(convoObj)
+        convoObj.conversation_start()
+
+    #redraw the maze    
+
 running = True
 
 while running:
@@ -93,21 +113,25 @@ while running:
                 player_sprite.update(-40, 0)
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
                     player_sprite.update(40, 0)
+                check_convo_collision()
 
             if event.key == pygame.K_RIGHT and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None):
                 player_sprite.update(40, 0)
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
                     player_sprite.update(-40, 0)
+                check_convo_collision()
 
             if event.key == pygame.K_UP and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None):
                 player_sprite.update(0, -30)
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
                     player_sprite.update(0, 30)
+                check_convo_collision()
 
             if event.key == pygame.K_DOWN and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None):
                 player_sprite.update(0, 30)
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
                     player_sprite.update(0, -30)
+                check_convo_collision()
 
             if event.key == pygame.K_r: ############################## regenerate maze
                 # regenerate maze
@@ -136,7 +160,7 @@ while running:
                             wall_tiles.add(tile)
                         else:
                             walk_tiles.add(tile)
-                            
+
 
     pygame.display.update()
     screen.fill(GREY)
