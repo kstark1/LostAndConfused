@@ -1,7 +1,7 @@
 import Conversation
 import random
 
-def generate_conversations(maze,screen):
+def generate_conversations(maze,screen, prompt, C1, C2, R1, R2, conversationCurrent):
     """generates and asssociates locations of convos as a dictionary. 
     keys are tuples of the location
     returns said dictionary
@@ -10,30 +10,14 @@ def generate_conversations(maze,screen):
     #generating random non-wall locations as tuples
     random.shuffle(maze)
     convoLocations = []
-    for x in range(15):
-            convoLocation = maze[x]
-            convoLocations.append(tuple(convoLocation))
 
-    
     # adding each convo object paired with its location as a key
     conversationDic = {}
 
-    """ create a new:
-
-            conversationDic[convoLocations[n]] = Conversation.Base_conversation
-            (nPrompt,option1,option2, correctAns, nPositiveResponse, nNegativeResponse,screen)
-
-        for each conversation we want added. ADD ONE TO N EACH TIME, AND MAKE SURE RANGE IN
-        LINE 15 IS THE TOTAL NUMBER OF CONVERSATIONS)"""
-
-    #convo 1
-    conversationDic[convoLocations[0]] = Conversation.Base_conversation ("nPrompt","option1","option2", "correctAns", "nPositiveResponse", "nNegativeResponse",screen)
-
-    #convo 2
-    conversationDic[convoLocations[1]] = Conversation.Base_conversation ("nPrompt","option1","option2", "correctAns", "nPositiveResponse", "nNegativeResponse",screen)
-
-    #convo 3
-    conversationDic[convoLocations[2]] = Conversation.Base_conversation ("nPrompt","option1","option2", "correctAns", "nPositiveResponse", "nNegativeResponse",screen)
+    for x in range(15):
+            convoLocation = maze[x]
+            convoLocations.append(tuple(convoLocation))
+            conversationDic[convoLocations[x]] = Conversation.Base_conversation (prompt[conversationCurrent], C1[conversationCurrent], C2[conversationCurrent], "correctAns", R1[conversationCurrent], R2[conversationCurrent],screen)
 
 
     return conversationDic

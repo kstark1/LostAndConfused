@@ -177,7 +177,7 @@ class Always_wrong_conversation(Base_conversation):
     #conversation object that will always randomize
 
     def check_ans(self):
-                if ans == self.correctAns:
+        if ans == self.correctAns:
             self.write_n_to_screen(self.nPositiveResponse,(self.nRectx+20,self.nRecty+20),self.white)
             time.sleep(2.5)
             return True
