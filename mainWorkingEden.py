@@ -107,8 +107,8 @@ def check_convo_collision():
         convoObj = (convoDictionary[collided_convo.corner])
         regen =  convoObj.conversation_start()
         if regen == True:
-            used_convos.append(collided_convo.corner)
-            convoGenEdenCopy.remove_convo(collided_convo.corner,convoDictionary)
+            #used_convos.append(collided_convo.corner)
+            #convoGenEdenCopy.remove_convo(collided_convo.corner,convoDictionary)
             return True
             
     return False
@@ -180,7 +180,9 @@ while running:
                         walk_tiles.add(tile)  
             conversationCurrent += 1
             convoDictionary = convoGenEdenCopy.generate_conversations(walkableTiles, screen, prompt, C1, C2, R1, R2, conversationCurrent)
-            
+            convo_tiles = pygame.sprite.Group()
+            for x in convoDictionary:
+                convo_tiles.add(Tile(x[0],x[1],1,GREY))
             regen = False
 
             
