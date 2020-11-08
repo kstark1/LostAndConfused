@@ -6,25 +6,25 @@ C1: I mean, sure, yeah, it's a pretty fine maze, a bit simple maybe.
 C2: THIS MAZE IS TRANCH, MAN.
 
 if C1:
-	Voice from the Ether: Huh... that's... pretty bold of you, dog, to suggest that this is a simple space. You know people have to like, carve this junk out, right? Well, whatever, you should be out in a jiffy, then. If it's so simple.
+	Voice from the Ether: Huh... that's... pretty bold of you, dog, to suggest_that this is a simple space. You know people have to like,_carve this junk out, right? Well, whatever, you should be out in a jiffy,_then. If it's so simple.
 if C2:
-	Voice from the Ether: ... Well you're about to get it right in the exactly where it's coming to you, friend. 
+	Voice from the Ether: ... Well you're about to get it right in the_exactly where it's coming to you, friend. 
 
 //Convo2
 
-Voice from the Ether: HUH, look at that! It's almost like there's some contingency plan to donk up fools like you who think this place is simple. Wild days. 
+Voice from the Ether: HUH, look at that! It's almost like there's some_contingency plan to donk up fools like you who_think this place is simple. Wild days. 
 
 C1: It uh, still looks pretty easy, though. 
 C2: What the- let me out of here you dillweed!
 
 if C1: 
-	Voice from the Ether: Thank goodness it probably only switches things up on you once then, huh?
+	Voice from the Ether: Thank goodness it probably only switches_things up on you once then, huh?
 if C2:
 	Voice from the Ether: IT'S A SIMPLE MAZE, GET YOURSELF OUT, DILLWEED.
 
 //Convo3
 
-Voice from the Ether: Oh boy, you're still stuck in this *super* simple maze, huh? It's almost like, I don't know, you've been asked to do some sort of complex task that doesn't just happen in the blink of an eye. Sometimes you've got to spend like, 24 hours on this kind of thing. It's hard business.
+Voice from the Ether: Oh boy, you're still stuck in this *super* simple maze,_huh? It's almost like, I don't know, you've been asked to do some_sort of complex task that doesn't just happen in the blink of an eye._Sometimes you've got to spend like, 24 hours on this kind of thing._It's hard business.
 
 C1: I'm only struggling because I've gotten little to no sleep.
 C2: You're hard business. 
@@ -43,7 +43,7 @@ C2: Shut the fu-
 
 //Either way:
 
-Voice from the Ether: Right back at you my dude. You know what, get out of here, this is as lame as the day you were born. 
+Voice from the Ether: Right back at you my dude. You know what, get out of here,_this is as lame as the day you were born. 
 
 //Convo5
 Voice from the Ether: AHAHAHAHA, I TOTALLY GO YOU, YOU FOOL, YOU WAD. 
@@ -52,10 +52,10 @@ C1: Please make this hackathon stop. I mean... maze? What the...
 C2: Why aren't you a physical entity I can punch? 
 
 if C1:
-	Voice from the Ether: My days, what sort of whacked out astral plane are you on right now? Alright dog, get out of here for real time. Get some sleep.
+	Voice from the Ether: My days, what sort of whacked out_astral plane are you on right now?_Alright dog, get out of here for real time. Get some sleep.
 if C2:
 	Voice from the Ether: Yeah, they didn't have time for that. Okay, okay, you can actually go now. Even I'm bored.
 
-//Can we trigger something upon win?
 
-Voice from the Ether: Nice knowing you, fool (thank the stars, this maze really is too small for the two of us).
+
+Voice from the Ether: Nice knowing you, fool_(thank the stars, this maze really is too small_for the two of us).
