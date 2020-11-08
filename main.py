@@ -95,6 +95,7 @@ def check_convo_collision():
     if not collided_convo == None:
         convoObj = (convoDictionary[collided_convo.corner])
         return convoObj.conversation_start()
+    return False
 
 
 running = True
@@ -130,6 +131,7 @@ while running:
                     player_sprite.update(0, -30)
                 regen = check_convo_collision()
 
+        print(regen)
         if regen == True:
         # regenerate maze
             obj = MazeGen()
