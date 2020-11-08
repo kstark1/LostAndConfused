@@ -10,7 +10,7 @@ def generate_conversations(maze,screen):
     #generating random non-wall locations as tuples
     random.seed()
     convoLocations = []
-    for x in range(3):   # Fix me before end
+    for x in range(5):   # Fix me before end
         while True:
             convoLocation = [random.randint(0,19),random.randint(0,19)]
             if maze[convoLocation[0]][convoLocation[1]] == 1 :
