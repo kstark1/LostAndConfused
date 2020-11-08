@@ -129,27 +129,35 @@ while running:
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
                     player_sprite.update(40, 0)
                 regen = check_convo_collision()
+                if conversationCurrent == 4 and pygame.sprite.spritecollideany(player, convo_tiles, collided = None) != None:
+                    convo_tiles.empty()
 
             if event.key == pygame.K_RIGHT and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None):
                 player_sprite.update(40, 0)
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
                     player_sprite.update(-40, 0)
                 regen =check_convo_collision()
+                if conversationCurrent == 4 and pygame.sprite.spritecollideany(player, convo_tiles, collided = None) != None:
+                    convo_tiles.empty()
 
             if event.key == pygame.K_UP and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None):
                 player_sprite.update(0, -30)
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
                     player_sprite.update(0, 30)
                 regen = check_convo_collision()
+                if conversationCurrent == 4 and pygame.sprite.spritecollideany(player, convo_tiles, collided = None) != None:
+                    convo_tiles.empty()
 
             if event.key == pygame.K_DOWN and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None):
                 player_sprite.update(0, 30)
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
                     player_sprite.update(0, -30)
                 regen = check_convo_collision()
+                if conversationCurrent == 4 and pygame.sprite.spritecollideany(player, convo_tiles, collided = None) != None:
+                    convo_tiles.empty()
 
         print(regen)
-        if regen == True and conversationCurrent < 5:
+        if regen == True and (conversationCurrent < 4):
         # regenerate maze
             obj = MazeGen()
             obj.empty_maze()
@@ -185,6 +193,8 @@ while running:
             for x in convoDictionary:
                 convo_tiles.add(Tile(x[0],x[1],1,GREY))
             regen = False
+        
+
 
             
 
