@@ -22,7 +22,7 @@ Use the up/down/left/right arrow keys to move your player through the maze.
 ## Requirements:
 Python3 and the pygame module must be installed.
 
-## Included Files:
+## Program Files:
 * README.md
 * main.py
 * classes.py
