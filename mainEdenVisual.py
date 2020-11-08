@@ -122,7 +122,7 @@ for i in range(20):
             colour = BLACK
         else:
             colour = BLUE
-        tile = Tile(i, j, positionState[i][j], colour)
+        tile = Tile(j, i, positionState[i][j], colour)
         if tile.state == 0:
             wall_tiles.add(tile)
         else:
