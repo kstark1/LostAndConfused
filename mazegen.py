@@ -39,8 +39,10 @@ class MazeGen():
         for i in range(self.num_dead):
             self.dead_connects.append([])
             for j in range(0, random.randrange(3, 5)):
-                self.dead_connects[i].append([random.randrange(1,self.dim)-2, random.randrange(1, self.dim-2)])
+                self.dead_connects[i].append([random.randrange(1,self.dim-2), random.randrange(1, self.dim-2)])
             self.dead_connects[i].append(random.choice(self.connections[1:-1]))
+            print(self.dead_connects[i])
+        print(self.connections)
     
     def get_endpoint(self):
         return self.connections[-1]
