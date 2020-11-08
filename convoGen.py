@@ -30,16 +30,13 @@ def generate_conversations(maze,screen):
         LINE 15 IS THE TOTAL NUMBER OF CONVERSATIONS)"""
 
     #convo 1
-    conversationDic[convoLocations[0]] = Conversation.Base_conversation
-    ("nPrompt","option1","option2", "correctAns", "nPositiveResponse", "nNegativeResponse",screen)
+    conversationDic[convoLocations[0]] = Conversation.Base_conversation ("nPrompt","option1","option2", "correctAns", "nPositiveResponse", "nNegativeResponse",screen)
 
     #convo 2
-    conversationDic[convoLocations[1]] = Conversation.Base_conversation
-    ("nPrompt","option1","option2", "correctAns", "nPositiveResponse", "nNegativeResponse",screen)
+    conversationDic[convoLocations[1]] = Conversation.Base_conversation ("nPrompt","option1","option2", "correctAns", "nPositiveResponse", "nNegativeResponse",screen)
 
     #convo 3
-    conversationDic[convoLocations[2]] = Conversation.Base_conversation
-    ("nPrompt","option1","option2", "correctAns", "nPositiveResponse", "nNegativeResponse",screen)
+    conversationDic[convoLocations[2]] = Conversation.Base_conversation ("nPrompt","option1","option2", "correctAns", "nPositiveResponse", "nNegativeResponse",screen)
 
 
     return conversationDic

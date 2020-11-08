@@ -94,14 +94,11 @@ def check_convo_collision():
     collided_convo = pygame.sprite.spritecollideany(player, convo_tiles, collided = None)
     if not collided_convo == None:
         convoObj = (convoDictionary[collided_convo.corner])
-        print(collided_convo.corner)
-        print(type(convoObj))
-        print(convoObj)
-        convoObj.conversation_start()
+        return convoObj.conversation_start()
 
-    #redraw the maze    
 
 running = True
+regen = False
 
 while running:
     for event in pygame.event.get(): 
@@ -113,53 +110,56 @@ while running:
                 player_sprite.update(-40, 0)
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
                     player_sprite.update(40, 0)
-                check_convo_collision()
+                regen = check_convo_collision()
 
             if event.key == pygame.K_RIGHT and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None):
                 player_sprite.update(40, 0)
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
                     player_sprite.update(-40, 0)
-                check_convo_collision()
+                regen =check_convo_collision()
 
             if event.key == pygame.K_UP and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None):
                 player_sprite.update(0, -30)
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
                     player_sprite.update(0, 30)
-                check_convo_collision()
+                regen = check_convo_collision()
 
             if event.key == pygame.K_DOWN and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None):
                 player_sprite.update(0, 30)
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
                     player_sprite.update(0, -30)
-                check_convo_collision()
+                regen = check_convo_collision()
 
-            if event.key == pygame.K_r: ############################## regenerate maze
-                # regenerate maze
-                obj = MazeGen()
-                obj.empty_maze()
-                obj.set_start(player.get_grid_pos())
-                obj.new_connection()
-                obj.set_end()
-                obj.connect_points()
-                print(player.get_grid_pos())
-                obj.set_dead_connects()
-                obj.dead_end_points()
-                obj.print_maze()
+        if regen == True:
+        # regenerate maze
+            obj = MazeGen()
+            obj.empty_maze()
+            obj.set_start(player.get_grid_pos())
+            obj.new_connection()
+            obj.set_end()
+            obj.connect_points()
+            print(player.get_grid_pos())
+            obj.set_dead_connects()
+            obj.dead_end_points()
+            obj.print_maze()
 
-                walk_tiles.empty()
-                wall_tiles.empty()
-                positionState = obj.get_maze()
-                for i in range(20):
-                    for j in range(20):
-                        if positionState[i][j] == 0:
-                            colour = DARK_GREEN
-                        else:
-                            colour = LIGHT_BLUE
-                        tile = Tile(j, i, positionState[i][j], colour)
-                        if tile.state == 0:
-                            wall_tiles.add(tile)
-                        else:
-                            walk_tiles.add(tile)
+            walk_tiles.empty()
+            wall_tiles.empty()
+            positionState = obj.get_maze()
+            for i in range(20):
+                for j in range(20):
+                    if positionState[i][j] == 0:
+                        colour = DARK_GREEN
+                    else:
+                        colour = LIGHT_BLUE
+                    tile = Tile(j, i, positionState[i][j], colour)
+                    if tile.state == 0:
+                        wall_tiles.add(tile)
+                    else:
+                        walk_tiles.add(tile)  
+            regen = False
+
+            
 
 
     pygame.display.update()

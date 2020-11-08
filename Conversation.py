@@ -136,20 +136,20 @@ class Base_conversation ():
         if ans == self.correctAns:
             self.write_n_to_screen(self.nPositiveResponse,(self.nRectx+20,self.nRecty+20),self.white)
             time.sleep(2.5)
+            return False
         else:
             self.write_n_to_screen(self.nNegativeResponse,(self.nRectx+20,self.nRecty+20),self.white)
             time.sleep(2.5)
-            self.randomize_maze
+            return True
 
-    def randomize_maze(self):
-        pass
+        
  
 
 class Always_wrong_conversation(Base_conversation):
     #conversation object that will always randomize
 
     def check_ans():
-        self.randomize_maze
+        return True
 
         
 
