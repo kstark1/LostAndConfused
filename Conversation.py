@@ -76,6 +76,7 @@ class Base_conversation ():
         pygame.draw.rect(self.screen,self.black,self.nRect)
         pygame.display.update()
         time.sleep(0.5)
+        position = list(position)
     
         # text is less than 64 characters, no line splitting needed
         if len(text) < 64:

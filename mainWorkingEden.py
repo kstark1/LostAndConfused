@@ -3,6 +3,7 @@ import random
 from mazegen import *
 import convoGenEdenCopy
 import Conversation
+import sys
 
 ### Display Variables
 TITLE = 'Maze Game' # Title that appears in the window title
@@ -86,12 +87,61 @@ player_sprite = pygame.sprite.Group()
 player = Player(startingX)
 player_sprite.add(player)
 
+nprompts = []
+nprompts.append("OH, well hello there. Pretty fine day, huh? Pretty fine maze?")
+nprompts.append("HUH, look at that! It's almost like there's some_contingency plan to donk up fools like you who_think this place is simple. Wild days. ")
+nprompts.append("Oh boy, you're still stuck in this *super* simple maze,_huh? It's almost like, I don't know, you've been asked to do some_sort of complex task that doesn't just happen in the blink of an eye._Sometimes you've got to spend like, 24 hours on this kind of thing._It's hard business.")
+nprompts.append("from the Ether: Still here, loser? ")
+nprompts.append("AHAHAHAHA, I TOTALLY GO YOU, YOU FOOL, YOU WAD.")
+# template nprompts.append("")
+
+choices1 = []
+choices1.append("I mean, sure, yeah, it's a pretty fine maze, a bit simple maybe.")
+choices1.append("It uh, still looks pretty easy, though.")
+choices1.append("I'm only struggling because I've gotten little to no sleep.")
+choices1.append("You're pretty blatantly unkind, you know that?")
+choices1.append("Please make this hackathon stop. I mean... maze? What the...")
+# template choices1.append("")
+
+  
+choices2 = []
+choices2.append("THIS MAZE IS TRANCH, MAN.")
+choices2.append("What the- let me out of here you dillweed!")
+choices2.append("You're hard business.")
+choices2.append("Shut the fu-")
+choices2.append("Why aren't you a physical entity I can punch?")
+# template choices2.append("")
+ 
+correctAns = []
+correctAns.append("I mean, sure, yeah, it's a pretty fine maze, a bit simple maybe.")
+correctAns.append("It uh, still looks pretty easy, though.")
+correctAns.append("I'm only struggling because I've gotten little to no sleep.")
+correctAns.append("You're pretty blatantly unkind, you know that?")
+correctAns.append("Please make this hackathon stop. I mean... maze? What the...")
+# template correctAns.append("")
+
+npos = []
+npos.append(" Huh... that's... pretty bold of you, dog, to suggest_that this is a simple space. You know people have to like,_carve this junk out, right? Well, whatever, you should be out in a jiffy,_then. If it's so simple.")
+npos.append("Thank goodness it probably only switches_things up on you once then, huh?")
+npos.append("You and everyone else in this Ether, fool.")
+npos.append("Right back at you my dude. You know what, get out of here,_this is as lame as the day you were born.")
+npos.append(" My days, what sort of whacked out_astral plane are you on right now?_Alright dog, get out of here for real time. Get some sleep.")
+# template npos.append("")
+
+nneg = []
+nneg.append("... Well you're about to get it right in the_exactly where it's coming to you, friend. ")
+nneg.append("IT'S A SIMPLE MAZE, GET YOURSELF OUT, DILLWEED.")
+nneg.append("NO YOU'RE HARD BUSINESS. ")
+nneg.append("Right back at you my dude. You know what, get out of here,_this is as lame as the day you were born. ")
+nneg.append(" Yeah, they didn't have time for that. Okay, okay, you can_actually go now. Even I'm bored.")
+# template nneg.append("")
+
 #Text lists
-prompt = ['0', '1', '2', '3', '4']
-C1 = ['0', '1', '2', '3', '4']
-C2 = ['0', '1', '2', '3', '4']
-R1 = ['0', '1', '2', '3', '4']
-R2 = ['0', '1', '2', '3', '4']
+prompt = nprompts
+C1 = choices1
+C2 = choices2
+R1 = npos
+R2 = nneg
 conversationCurrent = 0
 
 # Generate and group convo tiles
@@ -99,7 +149,7 @@ if conversationCurrent < 5:
     convoDictionary = convoGenEdenCopy.generate_conversations(walkableTiles,screen, prompt, C1, C2, R1, R2, conversationCurrent)
     convo_tiles = pygame.sprite.Group()
     for x in convoDictionary:
-        convo_tiles.add(Tile(x[0],x[1],1,GREY))
+        convo_tiles.add(Tile(x[0],x[1],1,LIGHT_BLUE))
 
 used_convos = []
 def check_convo_collision():
@@ -114,7 +164,7 @@ def check_convo_collision():
             
     return False
 
-
+endpoint = obj.get_endpoint()
 running = True
 regen = False
 
@@ -156,6 +206,11 @@ while running:
                 if conversationCurrent == 4 and pygame.sprite.spritecollideany(player, convo_tiles, collided = None) != None:
                     convo_tiles.empty()
 
+            if player.get_grid_pos() == endpoint:
+                winConvo = Conversation.Base_conversation("Finally leaving huh...","Absolutely","Yes", "None", "None","Nice knowing you, fool..._(thank the stars, this maze really is too small_for the two of us)." ,screen)
+                winConvo.conversation_start()
+                sys.exit()
+
         print(regen)
         if regen == True and (conversationCurrent < 4):
         # regenerate maze
@@ -191,7 +246,7 @@ while running:
             convoDictionary = convoGenEdenCopy.generate_conversations(walkableTiles, screen, prompt, C1, C2, R1, R2, conversationCurrent)
             convo_tiles = pygame.sprite.Group()
             for x in convoDictionary:
-                convo_tiles.add(Tile(x[0],x[1],1,GREY))
+                convo_tiles.add(Tile(x[0],x[1],1,LIGHT_BLUE))
             regen = False
         
 
