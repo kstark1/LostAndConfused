@@ -3,118 +3,82 @@ import random
 
 pygame.init()
 
-class mazeGenration():
-    def __init__(self):
-        self.start = 5
-        self.maze = [["e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e"]]
-        self.current_pos = [self.start, 0] ## (y, x)
-        self.dir = 'd'
-        self.row = self.start
-        self.col = 1
-        self.valid_dir = ['u', 'd', 'l', 'r']
 
-    def set_empty_maze(self):
-        for i in range(0, 10):
-            self.maze.append(["e", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "e"])
-        
-        self.maze.append(["e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e"])
-        
-        self.maze[self.start][1] = 1
-        self.maze[self.start][0] = 1
+
+class MazeGen():
+    def __init__(self):
+        self.maze = []
+        self.n = random.randrange(5, 8)
+        self.connections = []
+        self.row = 2
+        self.col = 0
+        self.dim = 20
     
+    def empty_maze(self):
+        for i in range(0, self.dim):
+            self.maze.append([0]*self.dim)
+        
+    
+    def set_start(self):
+        self.connections.append([random.randrange(self.dim), 0])
+        self.row = self.connections[0][0]
+    
+    def set_end(self):
+        self.connections.append([random.randrange(self.dim), 19])
+    
+    def new_connection(self):
+        for i in range(0, self.n):
+            self.connections.append([random.randrange(0,self.dim), random.randrange(0, self.dim-1)])
+    
+    def connect_points(self):
+        self.maze[self.connections[0][0]][0] = 1
+        print(self.row, self.col)
+        for j in range(0, len(self.connections)):
+            # vertical movement
+            diff_row = self.connections[j][0] - self.row
+            if diff_row <= 0:
+                for i in range(0, diff_row*-1):
+                    self.row -= 1
+                    self.maze[self.row][self.col] = 1
+            if diff_row > 0:
+                for i in range(0, diff_row):
+                    self.row += 1
+                    self.maze[self.row][self.col] = 1
+                    
+            print(self.row, self.col)
+            # horizontal movement
+            print(j)
+            print("test", self.connections[j][1], self.col)
+            diff_col = self.connections[j][1] - self.col
+            if diff_col < 0:
+                for i in range(0, diff_col*-1):
+                    self.col -= 1
+                    self.maze[self.row][self.col] = 1
+            
+            if diff_col >=0:
+                for i in range(0, diff_col):
+                    self.col += 1
+                    self.maze[self.row][self.col] = 1
+                
+            print(self.row, self.col)
+            # horizontal movement
+
     def print_maze(self):
         # use for debugging
         for row in self.maze:
             print(row)
 
-    def generate_maze(self):
-        # check going up
-        
-
-        if len(self.valid_dir) != 0:
-            self.dir = self.get_dir()
-            if self.dir == 'u':
-                try:
-                    if (self.maze[self.row- 1][self.col] == 0) and (self.maze[self.row - 2][self.col] == 0):
-                        print("valid path")
-                        self.row -= 1
-                        self.maze[self.row][self.col] = 1
-                        self.valid_dir = ['u', 'd', 'l', 'r'] # reset valid_dir list
-
-                    elif self.maze[self.row - 1][self.col] == "e":
-                        return False
-                    else:
-                        self.valid_dir.remove(self.dir)
-                except IndexError:
-                    print("not valid path")
-            
-            # check going down
-            if self.dir == 'd':
-                try:
-                    if (self.maze[self.row + 1][self.col] == 0) and (self.maze[self.row + 2][self.col] == 0):
-                        print("valid path")
-                        self.row += 1
-                        self.maze[self.row][self.col] = 1
-                        self.valid_dir = ['u', 'd', 'l', 'r']
-                    elif self.maze[self.row + 1][self.col] == "e":
-                        return False
-                    else:
-                        self.valid_dir.remove(self.dir)
-                except IndexError:
-                    print("not valid path")
-            
-            # check going left
-            if self.dir == 'l':
-                try:
-                    if (self.maze[self.row][self.col - 1] == 0) and (self.maze[self.row][self.col - 2] == 0):
-                        print("valid path")
-                        
-                        self.col -= 1
-                        self.maze[self.row][self.col] = 1
-                        self.valid_dir = ['u', 'd', 'l', 'r']
-                    elif self.maze[self.row][self.col - 1] == "e":
-                        return False
-                    else:
-                        self.valid_dir.remove(self.dir)
-                except IndexError:
-                    print("not valid path")
-
-            # check going right
-            if self.dir == 'r':
-                try:
-                    if (self.maze[self.row][self.col + 1] == 0) and (self.maze[self.row][self.col + 2] == 0):
-                        print("valid path")
-                        self.col += 1
-                        self.maze[self.row][self.col] = 1
-                        self.valid_dir = ['u', 'd', 'l', 'r']
-                    elif self.maze[self.row][self.col + 1] == "e":
-                        return False
-                    else:
-                        self.valid_dir.remove(self.dir)
-                except IndexError:
-                    print("not valid path")
-            
-            return True
-        else:
-            return False
-    
-    def get_dir(self):
-        return random.choice(self.valid_dir)
+    def get_maze(self):
+        return self.maze
 
 
-    
 
+obj = MazeGen()
+obj.empty_maze()
+obj.set_start()
+obj.new_connection()
+obj.set_end()
+obj.connect_points()
+obj.print_maze()
+print(obj.connections)
 
-myMaze = mazeGenration()
-myMaze.set_empty_maze()
-print()
-i = 0
-go = True
-i = 0
-while go and i <=10000:
-    go = myMaze.generate_maze()
-
-    i += 1
-print(i)
-print(go)
-myMaze.print_maze()
