@@ -23,6 +23,7 @@ pygame.display.set_caption(TITLE) # updates the window title w/ TITLE
 screen.fill(GREY) # Fills the entire surface w/ the colour --> fill = erase/clear
 screen_size = screen.get_size()
 
+
 clock = pygame.time.Clock() # starts a clock obj to measure time
 
 class Tile(pygame.sprite.Sprite):
@@ -45,12 +46,10 @@ class Player(pygame.sprite.Sprite):
         self.rect.center = (20, ((x * 30) + 15))
 
     def update(self, x, y):
-        # updates player's position
         self.rect.x += x
         self.rect.y += y
 
     def get_grid_pos(self):
-        # player index position on maze list
         return [self.rect.y//30, self.rect.x//40]
 
     def get_pos(self):
@@ -61,25 +60,25 @@ class Player(pygame.sprite.Sprite):
 
     def get_height(self):
         return self.rect.height
+    
 
-# generate the random maze
 obj = MazeGen()
 obj.empty_maze()
 obj.set_start()
 obj.new_connection()
 obj.set_end()
 obj.connect_points()
-
+obj.print_maze()
+#print(obj.connections)
 obj.set_dead_connects()
 obj.dead_end_points()
+obj.print_maze()
 
-
-# Tile objects
 wall_tiles = pygame.sprite.Group()
 walk_tiles = pygame.sprite.Group()
 
 positionState = obj.get_maze()
-# set the tiles according to the random maze
+
 for i in range(20):
     for j in range(20):
         if positionState[i][j] == 0:
@@ -122,41 +121,42 @@ regen = False
 
 while running:
     p_pos = player.get_pos()
+    #print(p_pos)
+  
     for event in pygame.event.get(): 
+        keys = pygame.key.get_pressed()
         if event.type == pygame.QUIT:
             running = False
-        
-        # player movement
         if event.type == pygame.KEYDOWN:
 
             if event.key == pygame.K_LEFT and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None) and p_pos[0] > 39:
                 player_sprite.update(-40, 0)
-                # check for collision
+                
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
                     player_sprite.update(40, 0)
                 regen = check_convo_collision()
 
-            if event.key == pygame.K_RIGHT and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None) and p_pos[0] <= screen_size[0] - player.get_width() - 39:
+            if event.key == pygame.K_RIGHT and keys[pygame.K_RIGHT] and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None) and p_pos[0] <= screen_size[0] - player.get_width() - 39:
                 player_sprite.update(40, 0)
-                # check for collision
+                print(player.get_pos())
+                print(keys[pygame.K_RIGHT])
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
                     player_sprite.update(-40, 0)
                 regen =check_convo_collision()
 
             if event.key == pygame.K_UP and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None) and p_pos[1] > 29:
                 player_sprite.update(0, -30)
-                # check for collision
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
                     player_sprite.update(0, 30)
                 regen = check_convo_collision()
 
             if event.key == pygame.K_DOWN and (pygame.sprite.spritecollideany(player, wall_tiles, collided = None) == None) and p_pos[1] <= screen_size[1] - player.get_height() - 29:
                 player_sprite.update(0, 30)
-                # check for collision
                 if pygame.sprite.spritecollideany(player, wall_tiles, collided = None) != None:
                     player_sprite.update(0, -30)
                 regen = check_convo_collision()
 
+        #print(regen)
         if regen == True:
         # regenerate maze
             obj = MazeGen()
@@ -165,9 +165,10 @@ while running:
             obj.new_connection()
             obj.set_end()
             obj.connect_points()
+            print('POS', player.get_grid_pos())
             obj.set_dead_connects()
             obj.dead_end_points()
-            
+            obj.print_maze()
 
             walk_tiles.empty()
             wall_tiles.empty()

@@ -32,7 +32,7 @@ class Tile(pygame.sprite.Sprite):
         self.image.fill(colour)
         self.rect = self.image.get_rect()
         self.rect.center = (((x * 40) + 20), ((y * 30) + 15))
-        self.corner = (x,y)
+        self.corner = (x, y)
 
 
 class Player(pygame.sprite.Sprite):
@@ -86,8 +86,16 @@ player_sprite = pygame.sprite.Group()
 player = Player(startingX)
 player_sprite.add(player)
 
+#Text lists
+prompt = ['0', '1', '2', '3', '4']
+C1 = ['0', '1', '2', '3', '4']
+C2 = ['0', '1', '2', '3', '4']
+R1 = ['0', '1', '2', '3', '4']
+R2 = ['0', '1', '2', '3', '4']
+conversationCurrent = 0
+
 # Generate and group convo tiles
-convoDictionary = convoGenEdenCopy.generate_conversations(walkableTiles,screen)
+convoDictionary = convoGenEdenCopy.generate_conversations(walkableTiles,screen, prompt, C1, C2, R1, R2, conversationCurrent)
 convo_tiles = pygame.sprite.Group()
 for x in convoDictionary:
     convo_tiles.add(Tile(x[0],x[1],1,GREY))
@@ -170,8 +178,8 @@ while running:
                         wall_tiles.add(tile)
                     else:
                         walk_tiles.add(tile)  
-
-            convoGenEdenCopy.rerandomize_convos(convoDictionary,walkableTiles)
+            conversationCurrent += 1
+            convoDictionary = convoGenEdenCopy.generate_conversations(walkableTiles, screen, prompt, C1, C2, R1, R2, conversationCurrent)
             
             regen = False
 
