@@ -3,6 +3,7 @@ import random
 from mazegen import *
 import convoGen
 import Conversation
+import sys
 
 ### Display Variables
 TITLE = 'Maze Game' # Title that appears in the window title
@@ -103,7 +104,7 @@ def check_convo_collision():
             
     return False
 
-
+endpoint = obj.get_endpoint()
 running = True
 regen = False
 
@@ -137,7 +138,13 @@ while running:
                     player_sprite.update(0, -30)
                 regen = check_convo_collision()
 
-        
+            if player.get_grid_pos() == endpoint:
+                winConvo = Conversation.Base_conversation("Finally leaving huh...","Absolutely","Yes", "None", "None","...It was fun while it lasted. See ya." ,screen)
+                winConvo.conversation_start()
+                sys.exit()
+
+
+            
 
         print(regen)
         if regen == True:
