@@ -1,6 +1,10 @@
 # LostAndConfused
 HackED Beta 2020 project
 
+## Background Information:
+We have created a maze game using Python3 and the pygame module. You will play as a white rectangle and navigate through a simple maze... but you must be careful not to upset the Ether or else finding your way out might become more difficult. 
+
+
 ## Running Instructions:
 Run the program by running the main.py file.
 
